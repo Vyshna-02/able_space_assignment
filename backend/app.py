@@ -1,77 +1,87 @@
-from flask import Flask, jsonify
+import os
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)  # enable cross-origin requests
+# Point Flask to frontend build folder
+app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
+CORS(app)
 
-
-products = [
+# API endpoint for products
+@app.route("/api/products")
+def get_products():
+    products = [
     {
         "id": 1,
-        "name": "iPhone 15",
-        "company": "Apple",
-        "category": "Smartphone",
-        "price": 1200,
-        "rating": 4.8,
-        "image": "https://example.com/iphone15.jpg"
+        "name": "Wireless Earbuds",
+        "company": "Nothing",
+        "category": "Audio",
+        "price": 99,
+        "rating": 4.5,
+        "image": "/images/cmf-earbuds.jpg"
     },
     {
         "id": 2,
-        "name": "Galaxy S23",
-        "company": "Samsung",
-        "category": "Smartphone",
-        "price": 1100,
-        "rating": 4.7,
-        "image": "https://example.com/galaxyS23.jpg"
+        "name": "Smartwatch Series 6",
+        "company": "Apple",
+        "category": "Wearables",
+        "price": 399,
+        "rating": 4.8,
+        "image": "/images/apple-smartwatch.jpeg"
     },
     {
         "id": 3,
-        "name": "MacBook Pro 16",
-        "company": "Apple",
-        "category": "Laptop",
-        "price": 2500,
-        "rating": 4.9,
-        "image": "https://example.com/macbookpro16.jpg"
+        "name": "Noise Cancelling Headphones",
+        "company": "Sony",
+        "category": "Audio",
+        "price": 299,
+        "rating": 4.6,
+        "image": "/images/Headphones.jpg"
     },
     {
         "id": 4,
-        "name": "Surface Laptop 5",
-        "company": "Microsoft",
-        "category": "Laptop",
-        "price": 2200,
-        "rating": 4.6,
-        "image": "https://example.com/surfacelaptop5.jpg"
+        "name": "Gaming Laptop",
+        "company": "Dell",
+        "category": "Computers",
+        "price": 1200,
+        "rating": 4.7,
+        "image": "/images/gaming-laptop.jpeg"
     },
     {
         "id": 5,
-        "name": "AirPods Pro",
-        "company": "Apple",
-        "category": "Accessories",
-        "price": 250,
-        "rating": 4.7,
-        "image": "https://example.com/airpodspro.jpg"
+        "name": "Smartphone X",
+        "company": "Samsung",
+        "category": "Mobile",
+        "price": 899,
+        "rating": 4.6,
+        "image": "/images/smartphone.jpeg"
     },
     {
         "id": 6,
-        "name": "Galaxy Buds 3",
-        "company": "Samsung",
-        "category": "Accessories",
-        "price": 200,
-        "rating": 4.5,
-        "image": "https://example.com/galaxybuds3.jpg"
+        "name": "Tablet Pro",
+        "company": "Apple",
+        "category": "Tablet",
+        "price": 699,
+        "rating": 4.7,
+        "image": "/images/tablet pro.jpeg"
     }
 ]
 
-@app.route("/")
-def home():
-    return "AbleSpace Backend Running. Use /api/products to see data."
-
-@app.route("/api/products", methods=["GET"])
-def get_products():
     return jsonify(products)
+
+# Serve React frontend
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve(path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, "index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
 
 
 

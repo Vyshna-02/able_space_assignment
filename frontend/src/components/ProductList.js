@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import ProductCard from "./ProductCard";
 import './ProductList.css';
 
@@ -7,8 +6,9 @@ function ProductList() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:5000/api/products")
-      .then(res => setProducts(res.data))
+    fetch("http://127.0.0.1:5000/api/products")
+      .then(res => res.json())
+      .then(data => setProducts(data))
       .catch(err => console.error(err));
   }, []);
 
@@ -22,4 +22,6 @@ function ProductList() {
 }
 
 export default ProductList;
+
+
 
