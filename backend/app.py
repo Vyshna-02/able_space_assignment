@@ -12,59 +12,80 @@ def get_products():
     products = [
     {
         "id": 1,
-        "name": "Wireless Earbuds",
-        "company": "Nothing",
-        "category": "Audio",
-        "price": 99,
+        "name": "AbleSpace Pro",
+        "company": "AbleSpace Inc",
+        "category": "Software",
+        "price": 499,
         "rating": 4.5,
-        "image": "/images/cmf-earbuds.jpg"
+        "image": "/images/tablet pro.jpeg",
+        "description": "AbleSpace Pro helps teams manage projects efficiently with cloud collaboration.",
+        "specifications": "Supports Windows/Mac, Cloud sync, 10GB storage, Multi-user access",
+        "reviews": "Users: 250, Avg Rating: 4.5 ⭐"
     },
-    {
+       {
         "id": 2,
-        "name": "Smartwatch Series 6",
-        "company": "Apple",
-        "category": "Wearables",
-        "price": 399,
-        "rating": 4.8,
-        "image": "/images/apple-smartwatch.jpeg"
+        "name": "AblePen Tablet",
+        "company": "AbleSpace Tech",
+        "category": "Hardware",
+        "price": 99,
+        "rating": 4.3,
+        "image": "/images/pen-tablet.jpeg",
+        "description": "Digital drawing tablet with pressure sensitivity for artists.",
+        "specifications": "Active area: 10x6 inches, Connectivity: USB, Pen included",
+        "reviews": "Users: 45, Avg Rating: 4.3 ⭐"
     },
     {
         "id": 3,
-        "name": "Noise Cancelling Headphones",
-        "company": "Sony",
-        "category": "Audio",
-        "price": 299,
-        "rating": 4.6,
-        "image": "/images/Headphones.jpg"
+        "name": "AbleDesk Chair",
+        "company": "AbleSpace Furnitures",
+        "category": "Hardware",
+        "price": 149,
+        "rating": 4.8,
+        "image": "/images/chair.jpeg",
+        "description": "Ergonomic office chair with lumbar support and adjustable height.",
+        "specifications": "Material: Mesh, Adjustable height, Max weight: 120kg",
+        "reviews": "Users: 80, Avg Rating: 4.8 ⭐"
     },
     {
         "id": 4,
-        "name": "Gaming Laptop",
-        "company": "Dell",
-        "category": "Computers",
-        "price": 1200,
-        "rating": 4.7,
-        "image": "/images/gaming-laptop.jpeg"
-    },
-    {
-        "id": 5,
-        "name": "Smartphone X",
-        "company": "Samsung",
-        "category": "Mobile",
-        "price": 899,
+        "name": "AbleDesk Monitor",
+        "company": "AbleSpace Tech",
+        "category": "Hardware",
+        "price": 299,
         "rating": 4.6,
-        "image": "/images/smartphone.jpeg"
+        "image": "/images/monitor.jpeg",
+        "description": "27-inch full HD monitor with ultra-thin bezels for a sleek setup.",
+        "specifications": "Resolution: 1920x1080, Refresh rate: 75Hz, HDMI & VGA ports",
+        "reviews": "Users: 60, Avg Rating: 4.6 ⭐"
     },
+     {
+        "id": 5,
+        "name": "AbleSpace Lite",
+        "company": "AbleSpace Inc",
+        "category": "Software",
+        "price": 199,
+        "rating": 4.0,
+        "image": "/images/gaming-laptop.jpeg",
+        "description": "Lightweight project management tool for small teams and freelancers.",
+        "specifications": "Supports Windows/Mac, Cloud sync, 5GB storage, Single-user focus",
+        "reviews": "Users: 120, Avg Rating: 4.0 ⭐"
+    },
+
     {
         "id": 6,
-        "name": "Tablet Pro",
-        "company": "Apple",
-        "category": "Tablet",
-        "price": 699,
-        "rating": 4.7,
-        "image": "/images/tablet pro.jpeg"
+        "name": "AbleSpace Cloud",
+        "company": "AbleSpace Inc",
+        "category": "Software",
+        "price": 29,
+        "rating": 4.2,
+        "image": "/images/smartphone.jpeg",
+        "description": "Secure cloud storage for individuals and small teams.",
+        "specifications": "Storage: 100GB, End-to-end encryption, Multi-device support",
+        "reviews": "Users: 500, Avg Rating: 4.2 ⭐"
     }
 ]
+
+
 
     return jsonify(products)
 

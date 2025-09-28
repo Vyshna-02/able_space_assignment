@@ -5,13 +5,17 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>AbleSpace Products</h1>
+      <header className="app-header">
+        <h1>AbleSpace Product Showcase</h1>
+        <p>Professional listing of top tech products</p>
+      </header>
       <ProductList />
     </div>
   );
 }
 
 export default App;
+
 
 
 
