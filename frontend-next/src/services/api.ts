@@ -1,4 +1,4 @@
-export const API_BASE = "http://localhost:5000"; // your backend base URL
+export const API_BASE = "https://able-space-assignment.onrender.com";
 
 export async function fetchProducts() {
   const res = await fetch(`${API_BASE}/products`);
