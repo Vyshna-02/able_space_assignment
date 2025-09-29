@@ -13,13 +13,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CartProvider>
-          <Navbar /> {/* Navbar stays inside provider if it uses cart */}
+          <Navbar /> {/* Navbar uses CartContext */}
           <main>{children}</main>
         </CartProvider>
       </body>
     </html>
   );
 }
+
 
 
 

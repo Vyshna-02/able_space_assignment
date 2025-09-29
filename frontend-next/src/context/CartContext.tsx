@@ -1,42 +1,44 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { Product } from "../types";
+import { createContext, useContext, useState, ReactNode } from "react";
 
-interface CartItem extends Product {
-  quantity: number;
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  quantity?: number;
+  image?: string;
 }
 
-interface CartContextType {
-  cart: CartItem[];
+export interface CartContextType {
+  cart: Product[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
-  clearCart: () => void;
+  clearCart: () => void; // ✅ add clearCart
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [cart, setCart] = useState<Product[]>([]);
 
   const addToCart = (product: Product) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+    setCart(prev => {
+      const exists = prev.find(p => p.id === product.id);
+      if (exists) {
+        return prev.map(p =>
+          p.id === product.id ? { ...p, quantity: (p.quantity || 1) + 1 } : p
         );
-      } else {
-        return [...prev, { ...product, quantity: 1 }];
       }
+      return [...prev, { ...product, quantity: 1 }];
     });
   };
 
   const removeFromCart = (productId: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== productId));
+    setCart(prev => prev.filter(p => p.id !== productId));
   };
 
-  const clearCart = () => setCart([]);
+  const clearCart = () => setCart([]); // ✅ implement clearCart
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
@@ -50,3 +52,4 @@ export const useCart = () => {
   if (!context) throw new Error("useCart must be used within CartProvider");
   return context;
 };
+

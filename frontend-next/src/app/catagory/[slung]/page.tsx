@@ -2,24 +2,30 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import ProductCard from "../../../components/ProductCard"; // adjust path if needed
-import { fetchProducts } from "../../../services/api"; // existing API function
-import { Product } from "../../../types";
+import ProductCard from "@/components/ProductCard";
+import { fetchProducts } from "@/services/api";
+import { Product } from "@/types";
 
-const CatagoryPage: React.FC = () => {
+export default function CategoryPage() {
   const params = useParams();
-  const slug = params.slug as string;
-
+  const slung = Array.isArray(params.slung) ? params.slung[0] : params.slung; // ensure string
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        // Temporarily, we fetch all products for demo
-        const data = await fetchProducts();
-        setProducts(data);
+        const allProducts: Product[] = await fetchProducts();
+        setProducts(allProducts);
+
+        if (slung) {
+          const filtered = allProducts.filter((p: Product) =>
+            ((p.category ?? "").toLowerCase() === slung.toLowerCase())
+          );
+          setFilteredProducts(filtered);
+        }
       } catch (err: any) {
         setError(err.message || "Failed to load products");
       } finally {
@@ -28,33 +34,23 @@ const CatagoryPage: React.FC = () => {
     };
 
     loadProducts();
-  }, [slug]);
+  }, [slung]);
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-64">
-        <p>Loading products...</p>
-      </div>
-    );
-
-  if (error)
-    return (
-      <div className="flex justify-center items-center h-64">
-        <p>{error}</p>
-      </div>
-    );
+  if (loading) return <div className="p-6 text-center">Loading products...</div>;
+  if (error) return <div className="p-6 text-center text-red-500">{error}</div>;
+  if (filteredProducts.length === 0) return <div className="p-6 text-center">No products found in this category.</div>;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-2xl font-semibold mb-6 capitalize">{slug}</h2>
+    <main className="max-w-6xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6 capitalize">{slung?.replace("-", " ")}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {filteredProducts.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-    </div>
+    </main>
   );
-};
+}
 
-export default CatagoryPage;
+
 
