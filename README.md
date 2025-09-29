@@ -1,23 +1,24 @@
-# AbleSpace Product Explorer
+# AbleSpace Assignment
 
-## Description
-This is a product explorer app showcasing products of AbleTech Inc. 
-Frontend built with React, Backend with Flask.
+Full-stack assignment with **Next.js (frontend)** and **NestJS (backend)**.
 
-## Installation
-1. Clone the repo
-2. Backend:
-    - `cd backend`
-    - `python -m pip install -r requirements.txt` (or install flask & flask-cors)
-    - `python app.py`
-3. Frontend:
-    - `cd frontend`
-    - `npm install`
-    - `npm start`
+---
 
-## Usage
-- Visit http://localhost:3000 to view product cards
-- Product data fetched from Flask backend
+## Project Structure
+- `frontend-next/` → Next.js app (runs on port 3000)
+- `backend-next/` → NestJS API server (runs on port 5000)
 
-## License
-MIT
+---
+
+## Quick Start (Local Development)
+
+### 1. Backend (NestJS)
+```bash
+cd backend-next
+npm install
+# run in dev mode
+npm run start:dev
+# or production build
+npm run build
+npm run start:prod
+

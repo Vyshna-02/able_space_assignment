@@ -39,3 +39,8 @@ Thumbs.db
 *.swp
 
 
+node_modules/
+.next/
+dist/
+*.env
+frontend-next/next-env.d.ts

@@ -1,23 +1,19 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
-@Controller('products')
+@Controller('products') // <-- this is fine if API_BASE includes /api
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
-  getAll() {
+  findAll() {
     return this.productsService.findAll();
   }
 
   @Get(':id')
-  getOne(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.findOne(id);
-  }
-
-  @Get(':id/recommended')
-  getRecommended(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.findRecommended(id);
+  findOne(@Param('id') id: string) {
+    return this.productsService.findOne(+id);
   }
 }
+
 
