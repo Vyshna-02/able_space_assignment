@@ -86,5 +86,3 @@ const ProductListWithHeadings: React.FC = () => {
 
 export default ProductListWithHeadings;
 
-
-

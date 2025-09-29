@@ -2,6 +2,7 @@
 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { CartProvider } from "../context/CartContext";
 
 export default function RootLayout({
   children,
@@ -11,10 +12,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />   {/* ✅ Navbar always visible */}
-        <main>{children}</main>
+        <CartProvider>
+          <Navbar /> {/* Navbar stays inside provider if it uses cart */}
+          <main>{children}</main>
+        </CartProvider>
       </body>
     </html>
   );
 }
+
+
+
+
 

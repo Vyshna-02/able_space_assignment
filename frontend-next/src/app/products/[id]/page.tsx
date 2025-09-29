@@ -4,9 +4,11 @@ import { useParams } from "next/navigation";
 import useSWR from "swr";
 import { fetchProductById, fetchProducts } from "@/services/api";
 import ProductCard from "@/components/ProductCard";
+import { useCart } from "@/context/CartContext"; // <-- import CartContext
 
 export default function ProductDetail() {
   const { id } = useParams();
+  const { addToCart } = useCart(); // <-- use cart hook
 
   const { data: product, error: productError } = useSWR(
     id ? `products/${id}` : null,
@@ -44,6 +46,14 @@ export default function ProductDetail() {
           <p className="mt-2 text-gray-700">
             <span className="font-semibold">Reviews:</span> {product.reviews}
           </p>
+
+          {/* Add to Cart Button */}
+          <button
+            onClick={() => addToCart(product)}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
 
