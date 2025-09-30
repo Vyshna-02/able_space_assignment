@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    // Target modern JavaScript
+    "target": "esnext",
+    "module": "esnext",
+
+    // Allow frontend features
+    "lib": ["dom", "dom.iterable", "esnext"],
+
+    // TypeScript strictness
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Module resolution for Next.js
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+
+    // Interop with CommonJS
+    "esModuleInterop": true,
+
+    // Path alias for "@/"
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["frontend-next/src/*"]
+    },
+
+    // Don’t emit JS, just check types
+    "noEmit": true
+  },
+  "include": ["frontend-next/src/**/*"],
+  "exclude": ["node_modules"]
+}
+

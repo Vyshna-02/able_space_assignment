@@ -1,5 +1,7 @@
 "use client";
+
 import React, { useState } from "react";
+import Link from "next/link";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -13,9 +15,15 @@ const Navbar = () => {
 
       {/* Desktop Menu */}
       <ul className="hidden md:flex gap-6">
-        <li><a href="/" className="hover:text-blue-500">Home</a></li>
-        <li><a href="/about" className="hover:text-blue-500">About</a></li>
-        <li><a href="/contact" className="hover:text-blue-500">Contact</a></li>
+        <li>
+          <Link href="/" className="hover:text-blue-500">Home</Link>
+        </li>
+        <li>
+          <Link href="/about" className="hover:text-blue-500">About</Link>
+        </li>
+        <li>
+          <Link href="/contact" className="hover:text-blue-500">Contact</Link>
+        </li>
       </ul>
 
       {/* Mobile Hamburger */}
@@ -28,9 +36,15 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {open && (
         <ul className="flex flex-col space-y-2 mt-2 md:hidden absolute bg-gray-100 w-full left-0 p-4 shadow-md">
-          <li><a href="/" className="hover:text-blue-500">Home</a></li>
-          <li><a href="/about" className="hover:text-blue-500">About</a></li>
-          <li><a href="/contact" className="hover:text-blue-500">Contact</a></li>
+          <li>
+            <Link href="/" className="hover:text-blue-500">Home</Link>
+          </li>
+          <li>
+            <Link href="/about" className="hover:text-blue-500">About</Link>
+          </li>
+          <li>
+            <Link href="/contact" className="hover:text-blue-500">Contact</Link>
+          </li>
         </ul>
       )}
     </nav>
@@ -38,6 +52,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 
 

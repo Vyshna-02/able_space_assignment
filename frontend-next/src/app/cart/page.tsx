@@ -5,7 +5,8 @@ import { useCart } from "../../context/CartContext";
 
 const CartPage: React.FC = () => {
   const { cart, removeFromCart, clearCart } = useCart();
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+
 
   if (cart.length === 0)
     return <p className="p-4 text-center">Your cart is empty</p>;

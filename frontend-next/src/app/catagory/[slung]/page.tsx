@@ -8,7 +8,7 @@ import { Product } from "@/types";
 
 export default function CategoryPage() {
   const params = useParams();
-  const slung = Array.isArray(params.slung) ? params.slung[0] : params.slung; // ensure string
+  const slung = Array.isArray(params.slung) ? params.slung[0] : params.slung;
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,8 +21,8 @@ export default function CategoryPage() {
         setProducts(allProducts);
 
         if (slung) {
-          const filtered = allProducts.filter((p: Product) =>
-            ((p.category ?? "").toLowerCase() === slung.toLowerCase())
+          const filtered = allProducts.filter((p) =>
+            (p.category ?? "").toLowerCase() === slung.toLowerCase()
           );
           setFilteredProducts(filtered);
         }
@@ -44,13 +44,14 @@ export default function CategoryPage() {
     <main className="max-w-6xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 capitalize">{slung?.replace("-", " ")}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredProducts.map((product: Product) => (
+        {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </main>
   );
 }
+
 
 
 

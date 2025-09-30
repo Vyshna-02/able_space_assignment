@@ -2,15 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import { fetchProducts, fetchHeadings } from "../services/api";
-import { Product } from "../types";
+import { fetchProducts, fetchHeadings } from "@/services/api";
+import { Product, Heading } from "@/types";
 import Link from "next/link";
-
-interface Heading {
-  id: number;
-  title: string;
-  slug: string;
-}
 
 const ProductList: React.FC = () => {
   const [headings, setHeadings] = useState<Heading[]>([]);
@@ -21,14 +15,12 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Fetch headings from backend
         const headingsData: Heading[] = await fetchHeadings().catch(() => [
           { id: 1, title: "Books", slug: "books" },
           { id: 2, title: "Children's Books", slug: "childrens-books" },
         ]);
         setHeadings(headingsData);
 
-        // Fetch products from backend
         const productsData: Product[] = await fetchProducts();
         setProducts(productsData);
       } catch (err: any) {
@@ -46,7 +38,6 @@ const ProductList: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      {/* Headings Navigation */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Explore by Category</h2>
         <div className="flex gap-4 overflow-x-auto">
@@ -62,9 +53,8 @@ const ProductList: React.FC = () => {
         </div>
       </div>
 
-      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {products.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
@@ -73,5 +63,6 @@ const ProductList: React.FC = () => {
 };
 
 export default ProductList;
+
 
 
