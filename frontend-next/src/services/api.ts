@@ -19,9 +19,8 @@ export async function fetchHeadings() {
   return res.json();
 }
 
-// ✅ Updated to use deployed backend instead of localhost
 export async function fetchProductsByCategory(slug: string) {
-  const res = await fetch(`${API_BASE}/category/${slug}`);
+  const res = await fetch(`${API_BASE}/catagory/${slug}`);
   if (!res.ok) throw new Error("Failed to fetch category products");
   return res.json();
 }
