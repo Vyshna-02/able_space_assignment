@@ -8,7 +8,7 @@ import { Product } from "@/types";
 
 export default function CategoryPage() {
   const params = useParams();
-  const slung = Array.isArray(params.slung) ? params.slung[0] : params.slung;
+  const slung = Array.isArray(params.slung) ? params.slung[0] : params.slung; // ensure string
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,10 +21,12 @@ export default function CategoryPage() {
         setProducts(allProducts);
 
         if (slung) {
-          const filtered = allProducts.filter((p) =>
-            (p.category ?? "").toLowerCase() === slung.toLowerCase()
+          const filtered = allProducts.filter(
+            (p) => (p.category ?? "").toLowerCase() === slung.toLowerCase()
           );
           setFilteredProducts(filtered);
+        } else {
+          setFilteredProducts(allProducts); // fallback if slung is undefined
         }
       } catch (err: any) {
         setError(err.message || "Failed to load products");
@@ -36,21 +38,35 @@ export default function CategoryPage() {
     loadProducts();
   }, [slung]);
 
-  if (loading) return <div className="p-6 text-center">Loading products...</div>;
-  if (error) return <div className="p-6 text-center text-red-500">{error}</div>;
-  if (filteredProducts.length === 0) return <div className="p-6 text-center">No products found in this category.</div>;
+  if (loading)
+    return <div className="p-6 text-center">Loading products...</div>;
+
+  if (error)
+    return (
+      <div className="p-6 text-center text-red-500">{error}</div>
+    );
+
+  if (filteredProducts.length === 0)
+    return (
+      <div className="p-6 text-center">
+        No products found in this category.
+      </div>
+    );
 
   return (
     <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 capitalize">{slung?.replace("-", " ")}</h1>
+      <h1 className="text-3xl font-bold mb-6 capitalize">
+        {slung?.replace("-", " ")}
+      </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredProducts.map((product) => (
+        {filteredProducts.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </main>
   );
 }
+
 
 
 

@@ -19,10 +19,10 @@ const ProductList: React.FC = () => {
           { id: 1, title: "Books", slug: "books" },
           { id: 2, title: "Children's Books", slug: "childrens-books" },
         ]);
-        setHeadings(headingsData);
+        setHeadings(headingsData || []);
 
         const productsData: Product[] = await fetchProducts();
-        setProducts(productsData);
+        setProducts(productsData || []);
       } catch (err: any) {
         setError(err.message || "Failed to load data");
       } finally {
@@ -38,13 +38,14 @@ const ProductList: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* Headings / Categories */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Explore by Category</h2>
         <div className="flex gap-4 overflow-x-auto">
           {headings.map((heading) => (
             <Link
               key={heading.id}
-              href={`/catagory/${heading.title.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase()}`}
+              href={`/catagory/${heading.slug}`}
               className="inline-block px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
             >
               {heading.title}
@@ -53,6 +54,7 @@ const ProductList: React.FC = () => {
         </div>
       </div>
 
+      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
@@ -63,6 +65,5 @@ const ProductList: React.FC = () => {
 };
 
 export default ProductList;
-
 
 
