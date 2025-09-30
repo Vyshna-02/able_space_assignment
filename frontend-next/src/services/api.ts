@@ -12,15 +12,18 @@ export async function fetchProductById(id: number) {
   return res.json();
 }
 
-// ✅ Add this function for headings
+// ✅ Fetch headings
 export async function fetchHeadings() {
   const res = await fetch(`${API_BASE}/headings`);
   if (!res.ok) throw new Error("Failed to fetch headings");
   return res.json();
 }
+
+// ✅ Updated to use deployed backend instead of localhost
 export async function fetchProductsByCategory(slug: string) {
-  const res = await fetch(`http://localhost:5000/category/${slug}`);
+  const res = await fetch(`${API_BASE}/category/${slug}`);
   if (!res.ok) throw new Error("Failed to fetch category products");
   return res.json();
 }
+
 
