@@ -23,8 +23,12 @@ const ProductList: React.FC = () => {
 
         const productsData: Product[] = await fetchProducts();
         setProducts(productsData || []);
-      } catch (err: any) {
-        setError(err.message || "Failed to load data");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Failed to load data");
+        }
       } finally {
         setLoading(false);
       }
@@ -65,5 +69,6 @@ const ProductList: React.FC = () => {
 };
 
 export default ProductList;
+
 
 

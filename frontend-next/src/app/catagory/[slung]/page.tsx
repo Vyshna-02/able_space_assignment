@@ -8,8 +8,8 @@ import { Product } from "@/types";
 
 export default function CategoryPage() {
   const params = useParams();
-  const slung = Array.isArray(params.slung) ? params.slung[0] : params.slung; // ensure string
-  const [products, setProducts] = useState<Product[]>([]);
+  const slung = Array.isArray(params.slung) ? params.slung[0] : params.slung;
+
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +18,6 @@ export default function CategoryPage() {
     const loadProducts = async () => {
       try {
         const allProducts: Product[] = await fetchProducts();
-        setProducts(allProducts);
 
         if (slung) {
           const filtered = allProducts.filter(
@@ -26,10 +25,14 @@ export default function CategoryPage() {
           );
           setFilteredProducts(filtered);
         } else {
-          setFilteredProducts(allProducts); // fallback if slung is undefined
+          setFilteredProducts(allProducts);
         }
-      } catch (err: any) {
-        setError(err.message || "Failed to load products");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Failed to load products");
+        }
       } finally {
         setLoading(false);
       }
@@ -38,20 +41,10 @@ export default function CategoryPage() {
     loadProducts();
   }, [slung]);
 
-  if (loading)
-    return <div className="p-6 text-center">Loading products...</div>;
-
-  if (error)
-    return (
-      <div className="p-6 text-center text-red-500">{error}</div>
-    );
-
+  if (loading) return <div className="p-6 text-center">Loading products...</div>;
+  if (error) return <div className="p-6 text-center text-red-500">{error}</div>;
   if (filteredProducts.length === 0)
-    return (
-      <div className="p-6 text-center">
-        No products found in this category.
-      </div>
-    );
+    return <div className="p-6 text-center">No products found in this category.</div>;
 
   return (
     <main className="max-w-6xl mx-auto p-6">
@@ -59,13 +52,14 @@ export default function CategoryPage() {
         {slung?.replace("-", " ")}
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredProducts.map((product: Product) => (
+        {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </main>
   );
 }
+
 
 
 
